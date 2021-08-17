@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  {{message}}
+<!--  if-else的使用-->
+  <h3 v-if = "isShow">
+    <div>abc</div>
+    <div>efg</div>
+  </h3>
+  <h4 v-else>hello</h4>
+
+<!--  v-show的使用-->
+  <h3 v-show="isShow">
+    {{message}}
+  </h3>
+
+<!--  if-else-if的使用-->
+  <br/>
+  <h3 v-if="score>=90">优秀</h3>
+  <h4 v-else-if="score>=80">良好</h4>
+  <h5 v-else-if="score>=70">一般</h5>
+  <h6 v-else-if="score>=60">及格</h6>
+  <h6 v-else>不及格</h6>
+
+<!--  用户登录方式切换案例-->
+<!--  设定key值可以保证切换过程中若是input框中有数据，则清空-->
+  <br/>
+  <div>
+    <span v-if="isUser">
+      <label>用户账号</label>
+      <input type="text" placeholder="用户账号" key="username">
+    </span>
+    <span v-else>
+      <label>用户邮箱</label>
+      <input type="text" placeholder="用户邮箱" key="email">
+    </span>
+    <button @click="btnClk">切换</button>
+  </div>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  const app=new Vue(
+    {
+      el:'#app',
+      data: {
+        message: 'hello',
+        isShow: true,
+        score: 90,
+
+        isUser:true
+        },
+      methods: {
+        btnClk(){
+          this.isUser = !this.isUser;
+        }
+      }
+    }
+  )
+</script>
+</body>
+</html>

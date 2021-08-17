@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="app">
+  <div v-if="shows.length>0">
+    <table>
+      <thead>
+      <tr>
+        <th></th>
+        <th>名称</th>
+        <th>时间</th>
+        <th>价格</th>
+        <th>数量</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(character,index) in shows">
+        <td>{{character.id}}</td>
+        <td>{{character.name}}</td>
+        <td>{{character.date}}</td>
+        <td>{{character.price | showPrice}}</td>
+        <td>
+          <button @click="decrement(index)" :disabled="character.count<=1">-</button>
+          {{character.count}}
+          <button @click="increment(index)">+</button>
+        </td>
+        <td>
+          <button @click="removement(index)">移除</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <h4>总价格：{{totalPrice | showPrice}}</h4>
+  </div>
+  <h4 v-else>人物为空</h4>
+</div>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

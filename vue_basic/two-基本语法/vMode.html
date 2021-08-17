@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!--  v-model修饰符的使用-->
+  <!--  1、lazy【让数据在失去焦点或者回车时才会更新】-->
+  <!--  2、number【让输入框中内容自动转成数字类型】-->
+  <!--  3、trim【过滤掉内容两边的空格】-->
+  {{message}}
+  <br/>
+  <input type="text" v-model.lazy.number.trim="message">
+  <br/>
+<!--  等价于下式-->
+  <input type="text" :value="message" @input="message = $event.target.value">
+  <br/>
+<!--  v-model结合radio单选框使用-->
+<!--  label的作用：除了选择单选框有效，选择其中的文字同样有效-->
+<!--  input的value表示获取的数据，input后面的中文表示浏览器显示的数据-->
+  <label for="male">
+    <input type="radio" id="male" value="男" v-model="sex">男
+  </label>
+  <label for="female">
+    <input type="radio" id="female" value="女" v-model="sex">女
+  </label>
+  <h3>您选择的性别是：{{sex}}</h3>
+  <br/>
+<!--  v-model结合checkbox多选框使用-->
+  <label for="agree">
+    <input type="checkbox" id="agree" v-model="isAgree">同意协议
+  </label>
+  <h4>您选择的是：{{isAgree}}</h4>
+  <button :disabled="!isAgree">下一步</button>
+  <br/>
+  <br/>
+
+  <label for="tunfo">
+    <input type="checkbox" id="tunfo" value="吞佛童子" v-model="figureLike">吞佛童子
+  </label>
+  <label for="aLai">
+    <input type="checkbox" id="aLai" value="袭灭天来" v-model="figureLike">袭灭天来
+  </label>
+  <label for="wHou">
+    <input type="checkbox" id="wHou" value="寂寞侯" v-model="figureLike">寂寞侯
+  </label>
+  <label for="siW">
+    <input type="checkbox" id="siW" value="四无君" v-model="figureLike">四无君
+  </label>
+  <h4>你喜欢的人物有：{{figureLike}}</h4>
+  <h5>列表形式为：</h5>
+  <div>
+    <ul>
+      <li v-for="figure in figureLike">{{figure}}</li>
+    </ul>
+  </div>
+  <br/>
+
+<!--  v-model结合select下拉列表使用-->
+<!--  多选需要加个标志位multiple-->
+  <select name="abc" v-model="selectName" multiple>
+    <option value="剑子仙迹">剑子仙迹</option>
+    <option value="疏楼龙宿">疏楼龙宿</option>
+    <option value="佛剑分说">佛剑分说</option>
+  </select>
+  <h4>当前选择的人物为：{{selectName}}</h4>
+  <br/>
+
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  const app=new Vue(
+    {
+      el:'#app',
+      data: {
+        message: 'hello',
+        sex: '男',
+        isAgree: false,
+        figureLike: [],
+        selectName: ['佛剑分说','疏楼龙宿']
+        }
+    }
+  )
+</script>
+
+</body>
+</html>

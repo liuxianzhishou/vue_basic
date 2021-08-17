@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  {{message}}
+  <son :son_num1="father_num1"
+       :son_num2="father_num2"
+        @change1="change1"
+        @change2="change2"></son>
+  <h5>父类数据如下：</h5>
+  {{father_num1}}
+  <br/>
+  {{father_num2}}
+</div>
+
+<template id="son">
+  <div>
+    <input type="text" v-model="son_data1" @input="in_ch1">
+    {{son_data1}}
+    <input type="text" v-model="son_data2" @input="in_ch2">
+    {{son_data2}}
+  </div>
+</template>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  const son={
+    template: '#son',
+    props: {
+      son_num1:Number,
+      son_num2:Number
+    },
+    data(){
+      return {
+        son_data1:this.son_num1,
+        son_data2:this.son_num2
+      }
+    },
+    methods: {
+      in_ch1(){
+        this.$emit('change1',this.son_data1);
+        this.son_data2=this.son_data1/10;
+        this.$emit('change2',this.son_data2);
+      },
+      in_ch2(){
+        this.$emit('change2',this.son_data2)
+        this.son_data1=this.son_data2*10;
+        this.$emit('change1',this.son_data1);
+      }
+    }
+  }
+
+  const app=new Vue(
+    {
+      el:'#app',
+      data: {
+        message: 'hello',
+        father_num1: 50,
+        father_num2: 10
+        },
+      components:{
+        son
+      },
+      methods: {
+        change1(value){
+          this.father_num1=parseFloat(value);
+        },
+        change2(value){
+          this.father_num2=parseFloat(value);
+        }
+      }
+    }
+  )
+</script>
+
+</body>
+</html>

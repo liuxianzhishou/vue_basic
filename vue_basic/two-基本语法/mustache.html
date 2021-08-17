@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app" v-cloak>
+<!--  ------------mustache的使用------------------ -->
+  <h3>{{firstMsg + ' ' + lastMsg}}</h3>
+  <h3>{{lastMsg}} {{firstMsg}}</h3>
+<!--  counter++ 并非简单语句，因此会报错-->
+  <h3>{{counter *2}}</h3>
+
+<!--  ============v-once的使用===================== -->
+  <h4 v-once>{{vOnceMsg}}</h4>
+
+<!--  ************v-html的使用********************* -->
+  <h4>{{url}}</h4>
+  <h4 v-html="url"></h4>
+
+<!--  /////////////v-pre的使用////////////////////// -->
+  <h4 v-pre>{{counter}}</h4>
+
+<!--  +++++++++++++v-cloak的使用+++++++++++++++++++ -->
+
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    const app=new Vue(
+      {
+          el:'#app',
+          data:
+            {
+              firstMsg:'hello',
+              lastMsg:'world',
+              counter:99,
+
+              vOnceMsg:'King',
+
+              url:'<a href="http://www.baidu.com">百度一下</a>'
+            }
+      }
+    )
+</script>
+
+</body>
+</html>

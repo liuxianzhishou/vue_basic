@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  {{message}}
+  <son :s_message="message" :s_shows="shows"/>
+</div>
+
+<template id="son">
+  <div>
+    <ul>
+      <li v-for="show in s_shows">{{show}}</li>
+    </ul>
+    {{s_message}}
+  </div>
+</template>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  const son={
+    template: '#son',
+    // props:['s_shows','s_message']
+    props: {
+      s_shows: Array,
+      s_message: {
+        type: String
+      }
+    }
+  }
+
+  const app=new Vue(
+    {
+      el:'#app',
+      data: {
+        message: 'hello',
+        shows:['霹雳兵燹','霹雳封灵岛','霹雳英雄榜之风起云涌']
+        },
+      components: {
+        son
+      }
+    }
+  )
+</script>
+</body>
+</html>

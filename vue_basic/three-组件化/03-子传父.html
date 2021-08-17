@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  {{message}}
+  <br/>
+  <son @app_clk="btnClk"></son>
+</div>
+
+<template id="son">
+  <div>
+    <button v-for="item in figures"
+    @click="son_clk(item)">{{item.name}}</button>
+  </div>
+</template>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  const son={
+    template:'#son',
+    data(){
+      return {
+        figures:[
+          {id: 1 ,name: '风中捉刀'},
+          {id: 2, name: '狄花题叶'},
+          {id: 3, name: '玲珑雪霏'},
+          {id: 4, name: '无情葬月'}
+        ]
+      }
+    },
+    methods: {
+      son_clk(item)
+      {
+        this.$emit('app_clk',item)
+      }
+    }
+  }
+
+  const app=new Vue(
+    {
+      el:'#app',
+      data: {
+        message: 'hello'
+        },
+      components: {
+        son
+      },
+      methods: {
+        btnClk(item){
+          console.log('btnClk',item)
+        }
+      }
+    }
+  )
+</script>
+</body>
+</html>

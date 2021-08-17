@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+<!--  基本使用-->
+  <h3>{{fullName}}</h3>
+<!--  复杂操作-->
+  <h3>{{fullLocal}}</h3>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  const app=new Vue(
+    {
+      el:'#app',
+      data: {
+        firstName: 'hello',
+        lastName: 'world',
+
+        figures: [
+          {id: 1, name: '剑子仙迹', local: '豁然之境'},
+          {id: 2, name: '疏楼龙宿', local: '宫灯帏'},
+          {id: 3, name: '佛剑分说', local: '神渊佛镜'}
+        ]
+        },
+      computed: {
+        //计算属性有get和set方法，但是set方法一般为空，所有省略
+        fullName: {
+          get: function () {
+            return this.firstName + ' ' + this.lastName
+          }
+        },
+
+        fullLocal: function () {
+          let res='';
+          //of类似于java增强for循环的in,javascript中也有in,类似于index
+          for(let i of this.figures){
+            res += i.local;
+            res +=' ';
+          }
+          return res;
+        }
+      }
+    }
+  )
+</script>
+</body>
+</html>

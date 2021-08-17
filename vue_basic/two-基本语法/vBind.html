@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .title {
+      color: #cd652e;
+    }
+    .active {
+      color: darkcyan;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  {{message}}<br/>
+<!--  +++++++++++++++++++v-bind的基本使用+++++++++++++++++++++++ -->
+  <img :src="imgURL"><br/>
+  <a :href="aHref">吞佛葱花</a>
+
+<!--  ******************v-bind动态绑定class********************* -->
+  <h3 :class="{active:isActive,line:isLine}">{{message}}</h3>
+  <h3 :class="getClass1()">{{message}}</h3>
+  <button @click="btnClk">按钮</button>
+
+<!--  ------------------v-bind动态绑定style属性----------------- -->
+  <h3 :style="{fontSize: finalSize + 'px',color: finalColor}">{{message}}</h3>
+  <h3 :style="getStyle()">{{message}}</h3>
+  <h3 :style="[fontSize3,color3]">{{message}}</h3>
+
+<!--  ///////////////////案例：遍历数组，选中哪个变成红色，默认选择第一个///////////////-->
+  <div>
+    <ul>
+      <li v-for="(item,index) in arrays"
+      @click="btnColor(index)"
+      :class="{active: currentIndex === index}">
+        {{item}}
+      </li>
+    </ul>
+  </div>
+
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  const app=new Vue(
+    {
+      el:'#app',
+      data: {
+        message: 'hello',
+        imgURL: 'https://cn.vuejs.org/images/logo.svg',
+        aHref: 'https://www.cnblogs.com/liuxianzhishou/',
+
+        isActive:false,
+        isLine:true,
+
+        finalSize: 10,
+        finalColor: 'indianred',
+        finalColor2: '#adcd98',
+        fontSize3: {fontSize: '20px'},
+        color3:{color: '#856bcd'},
+
+        arrays: ['地理司','邓九五','东方鼎立','公孙月','章袤君'],
+        currentIndex: 0
+        },
+      methods: {
+        btnClk: function () {
+          this.isActive=true;
+          this.isLine=false
+        },
+
+        getClass1:function () {
+          return {active:this.isActive,line:this.isLine}
+        },
+        getClass2: function () {
+          return [this.isActive,this.isLine]
+        },
+
+        getStyle: function () {
+          return {fontSize:this.finalSize+ 'px',color: this.finalColor2}
+        },
+
+        btnColor(index){
+          this.currentIndex = index;
+        }
+      }
+    }
+  )
+</script>
+
+</body>
+</html>

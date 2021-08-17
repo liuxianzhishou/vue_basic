@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  {{message}}
+<!--  v-for遍历数组-->
+<!--  ul【无序列表】，ol【有序列表】，li【列表项目】-->
+  <ul>
+    <li v-for="(i,index) in names">{{index+1}} {{i}}</li>
+  </ul>
+<!--  v-for遍历对象-->
+  <ol>
+    <li v-for="(item,key,index) in obj">{{item}}-{{key}}-{{index+1}}</li>
+  </ol>
+<!--  v-for使用过程中添加key-->
+  <ul>
+    <li v-for="item in arrays" :key="item">{{item}}</li>
+  </ul>
+<!--  数组中哪些方法是响应式的-->
+  <button @click="btnPush">push</button><br/>
+  <button @click="btnPop">pop</button><br/>
+  <button @click="btnShift">shift</button><br/>
+  <button @click="btnUnshift">unshift</button><br/>
+  <button @click="btnSplice">splice</button><br/>
+  <button @click="btnSort">sort</button><br/>
+  <button @click="btnReverse">reverse</button><br/>
+  <button @click="btnSet">set</button><br/>
+  <button @click="btnDisabled">disabled</button>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+  const app=new Vue(
+    {
+      el:'#app',
+      data: {
+        message: 'hello',
+        names: ['剑子仙迹','疏楼龙宿','佛剑分说'],
+        obj: {
+          name: '一页书',
+          local: '云渡山',
+          poem: '世事如棋，乾坤莫测，笑尽英雄'
+        },
+        arrays: ['大雁','空','龙子','小重子']
+        },
+      methods: {
+        btnPush(){
+          this.arrays.push('北冥皇渊','八纮稣浥');
+        },
+        btnPop(){
+          this.arrays.pop();
+        },
+        btnShift(){
+          this.arrays.shift();
+        },
+        btnUnshift(){
+          this.arrays.unshift('白娘娘')
+        },
+        btnSplice(){
+          this.arrays.splice(1,0,'木魅','月牙岚')
+        },
+        btnSort(){
+          this.arrays.sort();
+        },
+        btnReverse(){
+          this.arrays.reverse();
+        },
+        btnSet(){
+          Vue.set(this.arrays,0,'上官鸿信')
+        },
+        //非响应式
+        btnDisabled(){
+          this.arrays[0]='上官鸿信'
+        }
+      }
+    }
+  )
+</script>
+</body>
+</html>

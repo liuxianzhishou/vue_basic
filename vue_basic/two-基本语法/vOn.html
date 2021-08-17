@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  {{message}}
+<!--  v-on的参数问题-->
+  <button @click = "btn2Clk">按钮2</button>
+  <button @click = "btn3Clk(abc,$event)">按钮3</button>
+<!-- v-on的修饰符问题-->
+<!-- stop修饰符的使用【停止冒泡】-->
+  <div @click = "divClk">
+    <h3>吞佛童子</h3>
+    <button @click.stop = "btn4Clk">一剑封禅</button>
+  </div>
+<!-- prevent修饰符的使用【阻止默认行为】-->
+  <br/>
+  <form action= "vBind.html">
+    <input type="submit" value="提交" @click.prevent = "submitClk">
+  </form>
+<!-- 监听某个键盘的键帽-->
+  <input type="text" @keyup.q = "keyUp">
+
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  const app=new Vue(
+    {
+      el:'#app',
+      data: {
+        message: 'hello',
+        abc: 123,
+        color1: {color: '#aacccd'}
+        },
+      methods: {
+        btn2Clk(event){
+          console.log("btn2Clk" + event);
+        },
+        btn3Clk(abc,event){
+          console.log('------------',event);
+        },
+
+        divClk(){
+          console.log("divClk")
+        },
+        btn4Clk(){
+          console.log("btn4Clk")
+        },
+        submitClk(){
+          console.log("submitClk")
+        },
+        keyUp(){
+          console.log("q 键被按下")
+        }
+      }
+    }
+  )
+</script>
+</body>
+</html>

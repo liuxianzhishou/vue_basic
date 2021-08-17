@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<template id="son">
+  <div>
+<!--    具名slot的使用-->
+    <slot name="left"><span>一剑封禅</span></slot>
+    <slot name="mid"><span>剑雪无名</span></slot>
+    <slot name="right"><span>吞佛童子</span></slot>
+
+<!--    作用于slot的案例-->
+    <slot :sig="arrays">
+      <ul>
+        <li v-for="figure in arrays">
+          {{figure}}
+        </li>
+      </ul>
+    </slot>
+  </div>
+</template>
+
+<div id="app">
+  {{message}}
+  <son><p slot="left">双邪破金银</p> </son>
+  <son>
+    <template slot-scope="slot">
+      <ol>
+        <li v-for="fig in slot.sig">
+          {{fig}}
+        </li>
+      </ol>
+    </template>
+  </son>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  const app=new Vue(
+    {
+      el:'#app',
+      data: {
+        message: 'hello'
+        },
+      components: {
+        son: {
+          template: '#son',
+          data() {
+            return {
+              arrays: ['剑子仙迹','疏楼龙宿','佛剑分说']
+            }
+          }
+        }
+      }
+    }
+  )
+</script>
+
+</body>
+</html>

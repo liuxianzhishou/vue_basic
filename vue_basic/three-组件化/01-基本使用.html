@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<!-- vue为根组件；
+      father为父组件
+      son为子组件
+      -->
+<div id="app">
+  {{message}}
+  <father/>
+</div>
+
+<template id="father">
+  <div>
+    <ul>
+      <li v-for="figure in arraysFather">{{figure}}</li>
+    </ul>
+    <br/>
+    <h4>子组件如下：</h4>
+    <son/>
+  </div>
+</template>
+
+<template id="son">
+  <div>
+    <ol>
+      <li v-for="(fig,key) in figures">{{key}}:{{fig}}</li>
+    </ol>
+  </div>
+</template>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  //1.创建组件
+  //2.注册全局组件,可以在多个vue示例下面使用
+  const son ={
+    template: '#son',
+    data() {
+      return {
+        figures: {
+          fig1: '剑子仙迹',
+          fig2: '疏楼龙宿',
+          fig3: '佛剑分说'
+        }
+      };
+    }
+  };
+
+  const father ={
+    template: '#father',
+    components: {
+      son
+    },
+    data() {
+      return {
+        arraysFather:['清香白莲素还真','百世经纶一页书','刀狂剑痴叶小钗']
+      }
+    },
+  };
+
+  const app=new Vue(
+    {
+      el:'#app',
+      data: {
+        message: 'hello'
+        },
+      //注册局部组件
+      components: {
+        //需要小写字母才能正确识别
+        father
+      }
+    }
+  )
+</script>
+
+</body>
+</html>
